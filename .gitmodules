@@ -1,3 +1,6 @@
 [submodule "JS-Web-Game-Part-1"]
 	path = JS-Web-Game-Part-1
 	url = https://github.com/sagreenksu/JS-Web-Game-Part-1
+[submodule "JS-Web-Game-Part-4"]
+	path = JS-Web-Game-Part-4
+	url = https://github.com/sagreenksu/JS-Web-Game-Part-4.git
