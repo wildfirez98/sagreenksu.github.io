@@ -6,9 +6,9 @@ An organization to store and host project and assignment submissions for the KSU
 ## Courses
 
 ### Introduction to Full Stack Development
-[Introduction to Full Stack Development](01 - Introductory/README.md)
+[Introduction to Full Stack Development](/Courses/01-Introductory/README.md)
 ### Extended Software Development Bootcamp
-
+[Extended Software Development Bootcamp](/Courses/02-Extended/README.md)
 #### HTML & Web Accessibility
 
 #### CSS & CSS Frameworks
