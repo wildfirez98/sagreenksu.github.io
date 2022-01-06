@@ -9,4 +9,4 @@ https://sagreenksu.github.io/JS-Web-Game-Part-4/
 https://www.playcode.io/
 
 
-[Links](Links.md)
+[Links](docs/Links.md)
