@@ -1,5 +1,5 @@
 # Courses
 
-[Introductory](./Introductory/README.md)
+[Introductory](/Introductory/README.md)
 
-[Extended](./Extended/README.md)
+[Extended](/Extended/README.md)
