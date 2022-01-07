@@ -163,7 +163,7 @@ document.createElement().remove()
 
 ## Additional Information
 <details><summary>Screen Captures of Original Assignment Instructions - Part 1</summary>
-## Original Assignment - Part 1
+    <h2>Original Assignment - Part 1</h2>
 
 ![](./Captures/WebGameCapture00001.png)
 ![](./Captures/WebGameCapture00002.png)
