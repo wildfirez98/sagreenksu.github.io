@@ -445,6 +445,181 @@ newItem('assets/staff.png', 600, 250);
 
 ---
 ### Part 3
+We want our character to be able to move (or any other image or item in the future?).  Let's begin by defining a ```move()``` function.
+
+#### Version 1
+```javascript
+function move(image, left, bottom) {
+    image.style.position = 'fixed';
+    image.style.left = left + 'px';
+    image.style.bottom = bottom + 'px';
+}
+```
+Then, to test this functionality change the ```newImage()``` code by replacing its positioning logic with a call to the ```move()``` function.
+```javascript
+function move(image, left, bottom) {
+    image.style.position = 'fixed';
+    image.style.left = left + 'px';
+    image.style.bottom = bottom + 'px';
+}
+
+function newImage(url, left, bottom) {
+    let imageElement = document.createElement('img');
+    imageElement.src = url;
+    move(imageElement, left, bottom);
+    document.body.append(imageElement);
+
+    return imageElement;
+}
+```
+To test this functionality, modify the ```left``` and ```bottom``` parameters of the ```newImage('assets/green-character.gif', 100, 250);``` function call and watch as the green character moves around the screen.
+
+#### Version 2 - Defining a Function Within Another Function
+If we refactor the ```move()``` function to the following, we will have the same functionality.
+```javascript
+function move(image, left, bottom) {
+    image.style.position = 'fixed';
+
+    function moveToCoordinates(left, bottom) {
+        image.style.left = left + 'px';
+        image.style.bottom = bottom + 'px';
+
+    }
+
+    moveToCoordinates(left, bottom);
+}
+```
+What if we make the ```moveToCoordinates()``` sub-function available to the caller of the ```move()``` function instead?
+
+Changing the ```move()``` function and it's call in the ```newImage()``` function to the following produces the same results.  Note that the parameters for the ```move()``` function now exclude the ```left``` and ```bottom``` parameters, but those parameters are consumed in the sub-function, ```moveToCoordinates(left, bottom)```.
+
+```javascript
+function move(image) {
+    image.style.position = 'fixed';
+
+    function moveToCoordinates(left, bottom) {
+        image.style.left = left + 'px';
+        image.style.bottom = bottom + 'px';
+    }
+
+    return {
+        to: moveToCoordinates
+    }
+}
+
+function newImage(url, left, bottom) {
+    let imageElement = document.createElement('img');
+    imageElement.src = url;
+    move(imageElement).to(left, bottom);
+    document.body.append(imageElement);
+
+    return imageElement;
+}
+```
+#### Version 3
+Note that event the ```newInventory()``` function can take advantage of this function.
+```javascript
+function newInventory() {
+    let inventory = document.createElement('div')
+    inventory.style.backgroundColor = 'brown';
+    inventory.style.border = '2px solid black';
+    inventory.style.width = '100%';
+    inventory.style.height = '100px';
+    move(inventory).to(0, 0);
+    inventory.style.display = 'flex';
+    inventory.style.flexDirection = 'row';
+    inventory.style.alignItems = 'center';
+    inventory.style.justifyContent = 'space-evenly';
+    document.body.append(inventory);
+    return inventory;
+}
+
+let inventory = newInventory();
+```
+To generalize the ```move()``` function from images to all element types, let's rename the ```image``` variable to ```element``` instead.  This will improve readability and understanding by others maintaining our code later.
+
+```javascript
+function move(element) {
+    element.style.position = 'fixed';
+
+    function moveToCoordinates(left, bottom) {
+        element.style.left = left + 'px';
+        element.style.bottom = bottom + 'px';
+    }
+
+    return {
+        to: moveToCoordinates
+    }
+}
+```
+The finished code for this part looks like this:
+```javascript
+function move(element) {
+    element.style.position = 'fixed';
+
+    function moveToCoordinates(left, bottom) {
+        element.style.left = left + 'px';
+        element.style.bottom = bottom + 'px';
+    }
+
+    return {
+        to: moveToCoordinates
+    }
+}
+
+function newImage(url, left, bottom) {
+    let imageElement = document.createElement('img');
+    imageElement.src = url;
+    move(imageElement).to(left, bottom);
+    document.body.append(imageElement);
+
+    return imageElement;
+}
+
+function moveItemToInventory(url) {
+    let inventoryItem = document.createElement('img');
+    inventoryItem.src = url;
+    inventory.append(inventoryItem);
+}
+
+function newItem(url, left, bottom) {
+    let itemImageElement = newImage(url, left, bottom);
+    itemImageElement.addEventListener('click', () => {
+        itemImageElement.remove();
+        moveItemToInventory(url);
+    })
+}
+
+function newInventory() {
+    let inventory = document.createElement('div')
+    inventory.style.backgroundColor = 'brown';
+    inventory.style.border = '2px solid black';
+    inventory.style.width = '100%';
+    inventory.style.height = '100px';
+    move(inventory).to(0, 0);
+    inventory.style.display = 'flex';
+    inventory.style.flexDirection = 'row';
+    inventory.style.alignItems = 'center';
+    inventory.style.justifyContent = 'space-evenly';
+    document.body.append(inventory);
+    return inventory;
+}
+
+let inventory = newInventory();
+
+newImage('assets/green-character.gif', 100, 250);
+newImage('assets/tree.png', 200, 450);
+
+newImage('assets/pillar.png', 350, 250);
+newImage('assets/pine-tree.png', 450, 350);
+newImage('assets/crate.png', 150, 350);
+newImage('assets/well.png', 500, 575);
+
+
+newItem('assets/sword.png', 500, 555);
+newItem('assets/shield.png', 165, 335);
+newItem('assets/staff.png', 600, 250);
+```
 ---
 ### Part 4
 ---
@@ -491,4 +666,29 @@ newItem('assets/staff.png', 600, 250);
 ![](./Captures/WebGameCapture00041.png)
 ![](./Captures/WebGameCapture00042.png)
 ![](./Captures/WebGameCapture00043.png)
+</details>
+<details><summary>Screen Captures of Original Assignment Instructions - Part 3</summary>
+    <h2>Original Assignment - Part 3</h2>
+    
+![](./Captures/WebGameCapture00052.png)
+![](./Captures/WebGameCapture00053.png)
+![](./Captures/WebGameCapture00054.png)
+![](./Captures/WebGameCapture00055.png)
+![](./Captures/WebGameCapture00056.png)
+![](./Captures/WebGameCapture00057.png)
+![](./Captures/WebGameCapture00058.png)
+![](./Captures/WebGameCapture00059.png)
+![](./Captures/WebGameCapture00060.png)
+![](./Captures/WebGameCapture00061.png)
+![](./Captures/WebGameCapture00062.png)
+![](./Captures/WebGameCapture00063.png)
+![](./Captures/WebGameCapture00064.png)
+![](./Captures/WebGameCapture00065.png)
+![](./Captures/WebGameCapture00066.png)
+![](./Captures/WebGameCapture00067.png)
+![](./Captures/WebGameCapture00068.png)
+![](./Captures/WebGameCapture00069.png)
+![](./Captures/WebGameCapture00070.png)
+![](./Captures/WebGameCapture00071.png)
+![](./Captures/WebGameCapture00072.png)
 </details>
