@@ -180,5 +180,5 @@ document.createElement().remove()
 ![](./Captures/WebGameCapture00013.png)
 ![](./Captures/WebGameCapture00014.png)
 ![](./Captures/WebGameCapture00015.png)
-</details?>
+</details>
 
