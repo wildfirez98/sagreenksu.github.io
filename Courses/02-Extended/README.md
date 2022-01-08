@@ -8,3 +8,5 @@
 [03-UIUX](/Courses/02-Extended/03-UIUX/)
 ## JavaScript & Front-End Web Development
 [04-JS](/Courses/02-Extended/04-JS/)
+### Items of Interest from JavaScript & Front-End Web Development
+[Web Game Assignment Deeper Dive](./13-WebGameDeeperDive/README.md)
