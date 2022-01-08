@@ -1,0 +1,94 @@
+{
+  "main": {
+    "id": "d64ff117a95dbf45",
+    "type": "split",
+    "children": [
+      {
+        "id": "8cbcc7bc8c6b1b2d",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Courses/02-Extended/04-JS/13-WebGameDeeperDive/README.md",
+            "mode": "preview"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "41f3f4d05a55af88",
+    "type": "split",
+    "children": [
+      {
+        "id": "140637f43f687600",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "edd90a139c868fe5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "45e492b6a645a2c2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "9c6204920813dfe8",
+    "type": "split",
+    "children": [
+      {
+        "id": "ff931171a159af4e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8658aa191f2165be",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Courses/02-Extended/04-JS/13-WebGameDeeperDive/README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "8cbcc7bc8c6b1b2d",
+  "lastOpenFiles": [
+    "Courses/02-Extended/04-JS/13-WebGameDeeperDive/README.md",
+    "Courses/02-Extended/04-JS/README.md"
+  ]
+}

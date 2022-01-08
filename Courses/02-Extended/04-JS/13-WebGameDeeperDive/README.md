@@ -622,7 +622,666 @@ newItem('assets/staff.png', 600, 250);
 ```
 ---
 ### Part 4
+#### Version 1
+Begin by refactoring our code, placing our functions into separate ```*.js``` files.
+With that done, our HTML will appear as follows:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox</title>
+</head>
+<body>
+    <script src="newImage.js"></script>
+    <script src="newItem.js"></script>
+    <script src="newInventory.js"></script>
+    <script src="move.js"></script>
+    <script src="moveItemToInventory.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
+```
+And, our ```index.js``` file will be:
+```javascript
+let inventory = newInventory();
+
+newImage('assets/green-character.gif', 100, 250);
+newImage('assets/tree.png', 200, 450);
+
+newImage('assets/pillar.png', 350, 250);
+newImage('assets/pine-tree.png', 450, 350);
+newImage('assets/crate.png', 150, 350);
+newImage('assets/well.png', 500, 575);
+
+
+newItem('assets/sword.png', 500, 555);
+newItem('assets/shield.png', 165, 335);
+newItem('assets/staff.png', 600, 250);
+```
+All of the function definitions are contained within their own files and are referenced by ```script``` tags in the ```index.html``` file.
+
+#### Version 2 - Create a moveCharacter() Function
+Change the ```newImage()``` invocation to store the resulting object in a variable:
+```javascript
+const character = newImage('assets/green-character.gif');
+```
+![](./Captures/WebGameCapture00101.png)
+
+Then, position that same character to the bottom right of the screen by calling the ```.to()``` method.
+```javasctipt
+move(character).to(100, 250);
+```
+#### Version 3 - Position and Direction
+We will need variables to hold the character's current position.  Also, we will want a variable to let us know and control the character's direction of movement.  Also, feed the position variables into the ```move().to()``` call.
+```javascript
+const character = newImage('assets/green-character.gif')
+let x = 100;
+let y = 250;
+let direction = null;
+move(character).to(x, y);
+```
+#### Version 4 - Creating a moveCharacter() Function
+```javascript
+function moveCharacter() {
+    if(direction === 'west') {
+        x -= 1;
+    }
+    if(direction === 'north') {
+        y += 1; 
+    }
+    if(direction === 'east') {
+        x += 1;
+    }
+    if(direction === 'south') {
+        y -= 1;
+    }
+    character.style.left = x + 'px';
+    character.style.bottom = y + 'px';
+}
+
+direction = 'east';
+setInterval(moveCharacter, 1);
+```
+![](./Captures/WebGameCapture00103.gif)
 ---
+#### Version 5 - Refactoring the moveCharacter Function into the setInterval() Function
+Our code, when refactoring the function looks like this:
+```javascript
+setInterval(() => {
+    if(direction === 'west') {
+        x -= 1;
+    }
+    if(direction === 'north') {
+        y += 1; 
+    }
+    if(direction === 'east') {
+        x += 1;
+    }
+    if(direction === 'south') {
+        y -= 1;
+    }
+    character.style.left = x + 'px';
+    character.style.bottom = y + 'px';
+}, 1);
+```
+Or, to improve upon this, use the ```move().to()``` function previously discussed.
+```javascript
+setInterval(() => {
+    if(direction === 'west') {
+        x -= 1;
+    }
+    if(direction === 'north') {
+        y += 1;
+    }
+    if(direction === 'east') {
+        x += 1;
+    }
+    if(direction === 'south') {
+        y -= 1;
+    }
+    move(character).to(x, y);
+}, 1);
+```
+#### Version 6 - Adding Movement with Keyboard Keys
+To begin, we add a keyboard ```keydown``` event listener in our ```index.js``` file.
+```javascript
+document.addEventListener('keydown', function(e){                
+    if(e.key === 'ArrowLeft'){
+        direction = 'west'
+    }
+});
+```
+![](./Captures/WebGameCapture00105.gif)
+However, this only captures movements to the left (West). Improving the code by adding the other 3 cardinal directions:
+```javascript
+document.addEventListener('keydown', function(e){                
+    if(e.key === 'ArrowLeft'){
+        direction = 'west'
+    }
+    if(e.key === 'ArrowUp'){
+        direction = 'north'
+    }
+    if(e.key === 'ArrowRight'){
+        direction = 'east'
+    }
+    if(e.key === 'ArrowDown'){
+        direction = 'south'
+    }
+});
+```
+#### Version 7 - Shunting Repeated Keyboard Key Reads
+We have a relatively sticky keyboard, and the computer can rapidly fire off multiple events on a single keypress.  We simply need to capture the key once when it is pressed.  We add the following line of code to the ```keydown``` event listener to avoid problems:
+```javascript
+    if(e.repeat) return; 
+```
+As the first line to be evaluated in the ```keydown``` event, the ```if``` statement shunts the function to end before evaluating the remainder of the code by using an early ```return```.
+The event listener now looks like this:
+```javascript
+document.addEventListener('keydown', function(e){       
+    if(e.repeat) return;         
+    if(e.key === 'ArrowLeft'){
+        direction = 'west'
+    }
+    if(e.key === 'ArrowUp'){
+        direction = 'north'
+    }
+    if(e.key === 'ArrowRight'){
+        direction = 'east'
+    }
+    if(e.key === 'ArrowDown'){
+        direction = 'south'
+    }
+});
+```
+#### Version 8 - A Keyup Event
+Our character can move in all four directions, but now will not stop moving once started.  Let's add a ```keyup``` event to improve our functionality.
+```javascript
+document.addEventListener('keyup', function(e){
+    direction = null;
+});
+```
+
+#### Version 9 - Refactoring the Move Functionality
+We can improve the ```move()``` function, allowing it to work on other images too.  Change the ```move.js``` file to the following:
+```javascript
+function move(element) {
+    element.style.position = 'fixed';
+
+    function moveToCoordinates(left, bottom) {
+        element.style.left = left + 'px';
+        element.style.bottom = bottom + 'px';
+    }
+
+    function moveWithArrowKeys(left, bottom) {
+        let direction = null;
+        let x = left;
+        let y = bottom;
+    
+        element.style.left = x + 'px';
+        element.style.bottom = y + 'px';
+    
+        function moveCharacter(){
+            if(direction === 'west'){
+                x -= 1;
+            }
+            if(direction === 'north'){
+                y += 1;
+            }
+            if(direction === 'east'){
+                x += 1;
+            }
+            if(direction === 'south'){
+                y -= 1;
+            }
+            element.style.left = x + 'px';
+            element.style.bottom = y + 'px';
+        }
+    
+        setInterval(moveCharacter, 1);
+    
+        document.addEventListener('keydown', function(e){
+            if(e.repeat) return;
+    
+            if(e.key === 'ArrowLeft'){
+                direction = 'west';
+            }
+            if(e.key === 'ArrowUp'){
+                direction = 'north';
+            }
+            if(e.key === 'ArrowRight'){
+                direction = 'east';
+            }
+            if(e.key === 'ArrowDown'){
+                direction = 'south';
+            }
+        });
+    
+        document.addEventListener('keyup', function(e){
+            direction = null;
+        })
+    }
+
+    return {
+        to: moveToCoordinates,
+        withArrowKeys: moveWithArrowKeys
+    }
+}
+```
+And, modify the ```index.js``` file to use this new function.
+```javascript
+let inventory = newInventory();
+
+const character = newImage('assets/green-character.gif')
+move(character).withArrowKeys(100, 250);
+
+newImage('assets/tree.png', 200, 450);
+
+newImage('assets/pillar.png', 350, 250);
+newImage('assets/pine-tree.png', 450, 350);
+newImage('assets/crate.png', 150, 350);
+newImage('assets/well.png', 500, 575);
+
+
+newItem('assets/sword.png', 500, 555);
+newItem('assets/shield.png', 165, 335);
+newItem('assets/staff.png', 600, 250);
+```
+Now - if we create the tree object with this same method, it too will move with the arrow keys (in the same fashion as our character).
+```javascript
+let inventory = newInventory();
+
+const character = newImage('assets/green-character.gif')
+move(character).withArrowKeys(100, 250);
+
+move(newImage('assets/tree.png')).withArrowKeys(200, 450);
+
+
+newImage('assets/pillar.png', 350, 250);
+newImage('assets/pine-tree.png', 450, 350);
+newImage('assets/crate.png', 150, 350);
+newImage('assets/well.png', 500, 575);
+
+
+newItem('assets/sword.png', 500, 555);
+newItem('assets/shield.png', 165, 335);
+newItem('assets/staff.png', 600, 250);
+```
+![](./Captures/WebGameCapture00107.gif)
+Before proceeding, we revert our tree to a static image.
+```javascript
+newImage('assets/tree.png', 200, 450);
+```
+#### Version 10
+In this last step, we modify the character to change images to make it appear to walk when moving.  We will utilize animated gif's to do so.
+Add the following to the ```index.js``` file, replacing duplicate code where necessary.
+```javascript
+const character = newImage('assets/green-character.gif')
+
+function handleDirectionChange(){
+    if(direction === null){
+        character.src = 'assets/green-character.gif'
+    }
+    if(direction === 'west'){
+        character.src = 'assets/green-character/west.gif'
+    }
+    if(direction === 'north'){
+        character.src = 'assets/green-character/north.gif'
+    }
+    if(direction === 'east'){
+        character.src = 'assets/green-character/east.gif'
+    }
+    if(direction === 'south'){
+        character.src = 'assets/green-character/south.gif'
+    }
+}
+
+move(character).withArrowKeys(100, 250, handleDirectionChange)
+```
+Then add a callback parameter to the ```moveWithArrowKeys``` sub-function:
+```javascript
+function moveWithArrowKeys(left, bottom, callback) {
+```
+And finally, in the ```keydown``` and ```keyup``` event listeners, invoke the callback.
+```javascript
+        document.addEventListener('keydown', function(e){
+            if(e.repeat) return;
+    
+            if(e.key === 'ArrowLeft'){
+                direction = 'west';
+            }
+            if(e.key === 'ArrowUp'){
+                direction = 'north';
+            }
+            if(e.key === 'ArrowRight'){
+                direction = 'east';
+            }
+            if(e.key === 'ArrowDown'){
+                direction = 'south';
+            }
+            callback(direction);
+        });
+    
+        document.addEventListener('keyup', function(e){
+            direction = null;
+            callback(direction);
+        })
+```
+But also, in the ```handleDirectionChange()``` function, add ```direction``` as a parameter.
+```javascript
+function handleDirectionChange(direction){
+```
+#### Version 11
+Change the event listeners in the ```move.js``` file to invoke the callback only if the callback parameter is passed in.
+```javascript
+        document.addEventListener('keydown', function(e){
+            if(e.repeat) return;
+    
+            if(e.key === 'ArrowLeft'){
+                direction = 'west';
+            }
+            if(e.key === 'ArrowUp'){
+                direction = 'north';
+            }
+            if(e.key === 'ArrowRight'){
+                direction = 'east';
+            }
+            if(e.key === 'ArrowDown'){
+                direction = 'south';
+            }
+            if(callback !== undefined) {
+                callback(direction);
+            }
+        });
+    
+        document.addEventListener('keyup', function(e){
+            direction = null;
+            if(callback !== undefined) {
+                callback(direction);
+            }
+        })
+    }
+```
+Now, change the ```newImage()``` invocation to use this new functionality.  The tree will move with the character, but the character will use the callback to change the animated GIF it is using.
+![](./Captures/WebGameCapture00109.gif)
+#### Version 12
+The image can be moved off screen.  Let's improve our design.
+```javascript
+        function moveCharacter(){
+            if(direction === 'west'){
+                x = Math.max(0, x - 1);
+            }
+            if(direction === 'north'){
+                y += 1;
+            }
+            if(direction === 'east'){
+                x += 1;
+            }
+            if(direction === 'south'){
+                y = Math.max(0, y - 1);
+            }
+            element.style.left = x + 'px';
+            element.style.bottom = y + 'px';
+        }
+```
+This handles the minimum bounds (zero left, zero bottom).  To handle the maximum side of these bounds, we will use the ```window.innerWidth``` and ```window.innerHeight``` properties.
+
+![](./Captures/WebGameCapture00111.gif)
+
+You can see from this that the character and tree images ultimately have their lower, left image corners aligned - they have the same left and bottom coordinates after returning from over screen top and off screen right.  The images are stopping at ```window.innerWidth``` and ```window.innerHeight```, but they are offset by their image dimensions and therefore are off screen.  To prevent this, we need to limit not to ```window.innerWidth``` and ```window.innerHeight```, but the window inner dimensions less the dimension size of the images.  But, we need these parameter values to be given. We change the ```moveWithArrowKeys``` function signature to the following:
+```javascript
+function moveWithArrowKeys(left, bottom, width = 0, height = 0, callback) {
+```
+This gives the ```width``` and ```height``` parameters, and gives them default values of zero. To use this, we modify the ```moveCharacter()``` function to as follows:
+```javascript
+        function moveCharacter(){
+            if(direction === 'west'){
+                x = Math.max(0, x - 1);
+            }
+            if(direction === 'north'){
+                y = Math.min(window.innerHeight - height, y + 1);
+            }
+            if(direction === 'east'){
+                x = Math.min(window.innerWidth - width, x + 1);
+            }
+            if(direction === 'south'){
+                y = Math.max(0, y - 1);
+            }
+            element.style.left = x + 'px';
+            element.style.bottom = y + 'px';
+        }
+```
+We invoke these objects by the following code changes:
+```javascript
+move(character).withArrowKeys(100, 250, 50, 75, handleDirectionChange)
+move(newImage('assets/tree.png')).withArrowKeys(200, 450, 125, 165);
+```
+![](./Captures/WebGameCapture00113.gif)
+Notice that the character and tree stop differently at the edges. Each goes completely to the edge before stopping, regardless of whether the other image is already limited to the edge?
+#### Version 13
+The images can move behind the other images.  This is due to the z-index of each element.  What we want is the further up the image is placed on the screen, the further back it is positioned in z-index terms.  If a moving image is below the static image in screen height, it will pass in front of it, otherwise, behind.  To do this, we set the z-index for all images when they are first created.  However, we want to lowest vertical height images to have the highest z-index value and vise versa.
+
+We change the ```moveToCoordinates()``` and ```moveWithArrowKeys()``` functions to take z-index into account.  Note, there are three lines beginning with ```element.style.zIndex```.
+```javascript
+    function moveToCoordinates(left, bottom) {
+        element.style.left = left + 'px';
+        element.style.bottom = bottom + 'px';
+        element.style.zIndex = window.innerHeight - bottom;
+    }
+
+    function moveWithArrowKeys(left, bottom, width = 0, height = 0, callback) {
+        let direction = null;
+        let x = left;
+        let y = bottom;
+    
+        element.style.left = x + 'px';
+        element.style.bottom = y + 'px';
+        element.style.zIndex = window.innerHeight - y;
+    
+        function moveCharacter(){
+            if(direction === 'west'){
+                x = Math.max(0, x - 1);
+            }
+            if(direction === 'north'){
+                y = Math.min(window.innerHeight - height, y + 1);
+            }
+            if(direction === 'east'){
+                x = Math.min(window.innerWidth - width, x + 1);
+            }
+            if(direction === 'south'){
+                y = Math.max(0, y - 1);
+            }
+            element.style.left = x + 'px';
+            element.style.bottom = y + 'px';
+            element.style.zIndex = window.innerHeight - y;
+        }
+```
+![](./Captures/WebGameCapture00115.gif)
+
+## Completion
+This completes the project.  The full code is as follows:
+
+```index.html```
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox</title>
+</head>
+<body>
+    <script src="newImage.js"></script>
+    <script src="newItem.js"></script>
+    <script src="newInventory.js"></script>
+    <script src="move.js"></script>
+    <script src="moveItemToInventory.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
+```
+```index.js```
+```javascript
+let inventory = newInventory();
+
+const character = newImage('assets/green-character.gif')
+
+function handleDirectionChange(direction){
+    if(direction === null){
+        character.src = 'assets/green-character.gif'
+    }
+    if(direction === 'west'){
+        character.src = 'assets/green-character/west.gif'
+    }
+    if(direction === 'north'){
+        character.src = 'assets/green-character/north.gif'
+    }
+    if(direction === 'east'){
+        character.src = 'assets/green-character/east.gif'
+    }
+    if(direction === 'south'){
+        character.src = 'assets/green-character/south.gif'
+    }
+}
+
+move(character).withArrowKeys(100, 250, 50, 75, handleDirectionChange)
+move(newImage('assets/tree.png')).withArrowKeys(200, 450, 125, 165);
+
+newImage('assets/pillar.png', 350, 250);
+newImage('assets/pine-tree.png', 450, 350);
+newImage('assets/crate.png', 150, 350);
+newImage('assets/well.png', 500, 575);
+
+
+newItem('assets/sword.png', 500, 555);
+newItem('assets/shield.png', 165, 335);
+newItem('assets/staff.png', 600, 250);
+```
+```move.js```
+```javascript
+function move(element) {
+    element.style.position = 'fixed';
+
+    function moveToCoordinates(left, bottom) {
+        element.style.left = left + 'px';
+        element.style.bottom = bottom + 'px';
+        element.style.zIndex = window.innerHeight - bottom;
+    }
+
+    function moveWithArrowKeys(left, bottom, width = 0, height = 0, callback) {
+        let direction = null;
+        let x = left;
+        let y = bottom;
+    
+        element.style.left = x + 'px';
+        element.style.bottom = y + 'px';
+        element.style.zIndex = window.innerHeight - y;
+    
+        function moveCharacter(){
+            if(direction === 'west'){
+                x = Math.max(0, x - 1);
+            }
+            if(direction === 'north'){
+                y = Math.min(window.innerHeight - height, y + 1);
+            }
+            if(direction === 'east'){
+                x = Math.min(window.innerWidth - width, x + 1);
+            }
+            if(direction === 'south'){
+                y = Math.max(0, y - 1);
+            }
+            element.style.left = x + 'px';
+            element.style.bottom = y + 'px';
+            element.style.zIndex = window.innerHeight - y;
+        }
+    
+        setInterval(moveCharacter, 1);
+    
+        document.addEventListener('keydown', function(e){
+            if(e.repeat) return;
+    
+            if(e.key === 'ArrowLeft'){
+                direction = 'west';
+            }
+            if(e.key === 'ArrowUp'){
+                direction = 'north';
+            }
+            if(e.key === 'ArrowRight'){
+                direction = 'east';
+            }
+            if(e.key === 'ArrowDown'){
+                direction = 'south';
+            }
+            if(callback !== undefined) {
+                callback(direction);
+            }
+        });
+    
+        document.addEventListener('keyup', function(e){
+            direction = null;
+            if(callback !== undefined) {
+                callback(direction);
+            }
+        })
+    }
+
+    return {
+        to: moveToCoordinates,
+        withArrowKeys: moveWithArrowKeys
+    }
+}
+```
+
+```moveItemToInventory.js```
+
+```javascript
+function moveItemToInventory(url) {
+    let inventoryItem = document.createElement('img');
+    inventoryItem.src = url;
+    inventory.append(inventoryItem);
+}
+```
+```newImage.js```
+```javascript
+function newImage(url, left, bottom) {
+    let imageElement = document.createElement('img');
+    imageElement.src = url;
+    move(imageElement).to(left, bottom);
+    document.body.append(imageElement);
+
+    return imageElement;
+}
+```
+```newInventory.js```
+```javascript
+function newInventory() {
+    let inventory = document.createElement('div')
+    inventory.style.backgroundColor = 'brown';
+    inventory.style.border = '2px solid black';
+    inventory.style.width = '100%';
+    inventory.style.height = '100px';
+    move(inventory).to(0, 0);
+    inventory.style.display = 'flex';
+    inventory.style.flexDirection = 'row';
+    inventory.style.alignItems = 'center';
+    inventory.style.justifyContent = 'space-evenly';
+    document.body.append(inventory);
+    return inventory;
+}
+```
+```newItem.js```
+```javascript
+function newItem(url, left, bottom) {
+    let itemImageElement = newImage(url, left, bottom);
+    itemImageElement.addEventListener('click', () => {
+        itemImageElement.remove();
+        moveItemToInventory(url);
+    })
+}
+```
 
 
 
@@ -691,4 +1350,36 @@ newItem('assets/staff.png', 600, 250);
 ![](./Captures/WebGameCapture00070.png)
 ![](./Captures/WebGameCapture00071.png)
 ![](./Captures/WebGameCapture00072.png)
+</details>
+<details><summary>Screen Captures of Original Assignment Instructions - Part 4</summary>
+    <h2>Original Assignment - Part 4</h2>
+    
+![](./Captures/WebGameCapture00073.png)
+![](./Captures/WebGameCapture00074.png)
+![](./Captures/WebGameCapture00075.png)
+![](./Captures/WebGameCapture00076.png)
+![](./Captures/WebGameCapture00077.png)
+![](./Captures/WebGameCapture00078.png)
+![](./Captures/WebGameCapture00079.png)
+![](./Captures/WebGameCapture00080.png)
+![](./Captures/WebGameCapture00081.png)
+![](./Captures/WebGameCapture00082.png)
+![](./Captures/WebGameCapture00083.png)
+![](./Captures/WebGameCapture00084.png)
+![](./Captures/WebGameCapture00085.png)
+![](./Captures/WebGameCapture00086.png)
+![](./Captures/WebGameCapture00087.png)
+![](./Captures/WebGameCapture00088.png)
+![](./Captures/WebGameCapture00089.png)
+![](./Captures/WebGameCapture00090.png)
+![](./Captures/WebGameCapture00091.png)
+![](./Captures/WebGameCapture00092.png)
+![](./Captures/WebGameCapture00093.png)
+![](./Captures/WebGameCapture00094.png)
+![](./Captures/WebGameCapture00095.png)
+![](./Captures/WebGameCapture00096.png)
+![](./Captures/WebGameCapture00097.png)
+![](./Captures/WebGameCapture00098.png)
+![](./Captures/WebGameCapture00099.png)
+![](./Captures/WebGameCapture00100.png)
 </details>
