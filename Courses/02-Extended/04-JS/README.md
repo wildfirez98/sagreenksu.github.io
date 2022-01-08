@@ -70,19 +70,19 @@
 
 ## Classes, Properties, and Methods
 
-[18-ClassesPropertiesAndMethods]()
+[18-ClassesPropertiesAndMethods](18-ClassesPropertiesAndMethods)
 
 ## Class Practice
 
-[19-ClassPractice]()
+[19-ClassPractice](19-ClassPractice)
 
 ## Class Inheritance
 
-[20-ClassInheritance]()
+[20-ClassInheritance](20-ClassInheritance)
 
 ## Inheritance Practice
 
-[21-InheitancePractice]()
+[21-InheitancePractice](21-InheitancePractice)
 
 ## Introduction to Asynchrony
 
