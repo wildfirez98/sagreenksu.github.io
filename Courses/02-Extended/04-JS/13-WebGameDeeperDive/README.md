@@ -4,7 +4,9 @@ This is an extended look at the Web Game project and a culmulative description o
 ## Progression
 This project was presented across four parts.
 <details><summary>Part 1</summary>
+
 <details><summary>Version 1</summary>
+
 ![](./Captures/WebGameCapture00017.png)
 
 For this version, I simply started by importing the =green= 
@@ -21,7 +23,9 @@ This code creates an HTML element object - in this case, an ```img``` tag.
 
 The ```src``` property of the element is set to the relative file path of the image (gif format in this instance, but png will be shown later).<sup>[1](#footnote001)</sup>
 </details>
+
 <details><summary>Version 2</summary>
+
 ![](./Captures/WebGameCapture00018.png)
 Now, adding a pine tree using the same code structure:
 ```javascript
@@ -34,7 +38,9 @@ document.body.append(pineTree);
 ```
 However, what about adding more images later? This is redundancy a function can help solve.
 </details>
+
 <details><summary>Version 3</summary>
+
 ![](./Captures/WebGameCapture00019.png)
 The code becomes more sophisticated and refined by eliminating redundancy where possible. In this case, the function eliminates redundant code structure.
 ```javascript
@@ -51,7 +57,9 @@ newImage('assets/green-character.gif', 100, 100);
 newImage('assets/pine-tree.png', 450, 200);
 ```
 </details>
+
 <details><summary>Version 4</summary>
+
 ![](./Captures/WebGameCapture00020.png)
 And now with more images placed on the page with the same function as before, ```newImage```.
 ```javascript
@@ -61,7 +69,9 @@ newImage('assets/crate.png', 150, 200);
 newImage('assets/well.png', 500, 425);
 ```
 </details>
+
 <details><summary>Version 5</summary>
+
 Adding a sword for the player to click to pick up.
 
 This is a variation on the ```newImage()``` function, where an event listener is added and on the ```click``` event, the item disappears from the document body.
@@ -108,7 +118,9 @@ function newItem(url, left, bottom) {
 The animated GIF doesn't show the mouse movement too well, but rest assured, the mouse was positioned over the sword item before the left mouse button was clicked to remove the item image element from the document body.
 
 </details>
+
 <details><summary>Version 6</summary>
+
 Adding two more items to the document with the ```newItem()``` function from before.
 ```javascript
 newItem('assets/shield.png', 165, 185);
@@ -119,9 +131,12 @@ The results are shown below (again, the mouse pointer isn't captured precisely l
 ![](./Captures/WebGameCapture00027.gif)
 
 </details>
+
 <details><summary>Version 7</summary>
+
 What if we wanted to make a change across all items?  With a function it's very easy - just one change, instead of changing each time the ```newItem``` block appeared in the code.
 </details>
+
 ## Finished Result - Part 1
 ![](./Captures/WebGameCapture00031.gif)
 
@@ -184,8 +199,11 @@ document.body.append(document.createElement())
 document.createElement().remove()
 ```
 </details>
+
 <details><summary>Part 2</summary>
+
 <details><summary>Version 1</summary>
+
 The code resumes from where we were at in the previous part (Part 1).  Although, the image and item positions are located in slightly different places.  The only major change is the removal of our event listener in the ```newItem()``` function:
 ```javascript
 function newItem(url, left, bottom) {
@@ -284,7 +302,9 @@ newInventory();
 ```
 That completes the setup.  We can now begin with the assignment instructions.
 </details>
+
 <details><summary>Version 2</summary>
+
 When the user clicks on an item, we want to remove it from the document.  This is how:
 ```javascript
 function newItem(url, left, bottom) {
@@ -302,7 +322,9 @@ newItem('assets/staff.png', 600, 250);
 ```
 ![](./Captures/WebGameCapture00049.gif)
 </details>
+
 <details><summary>Version 3</summary>
+
 The item is now removed when clicked.  Let's place the same item in the inventory ```div```.
 ```javascript
 function newItem(url, left, bottom) {
@@ -348,7 +370,9 @@ function newInventory() {
 Now, the application works as intended.
 ![](./Captures/WebGameCapture00051.gif)
 </details>
+
 <details><summary>Version 4</summary>
+
 To improve the coding, let's make the ```newInventory()``` function return a ```div``` element object.
 ```javascript
 function newInventory() {
@@ -372,7 +396,9 @@ let inventory = newInventory();
 ```
 And now we have a more elegant function and function call to work with.
 </details>
+
 <details><summary>Version 5</summary>
+
 Lastly, let's refactor to have the "clicked" items move into the inventory ```div``` through the use of a ```moveItemToInventory()``` function. Re-writing our ```newItem()``` function to incorporate this new item-moving function, we get the following:
 ```javascript
 function moveItemToInventory(url) {
@@ -392,6 +418,7 @@ function newItem(url, left, bottom) {
 
 The same item-clicking event removes the item from our document and places it in the inventory ```div```.  The functionality has not changed, although the implementation is better and more versatile.
 </details>
+
 ## Finished Result - Part 2
 ```javascript
 function newImage(url, left, bottom) {
@@ -452,10 +479,14 @@ newItem('assets/shield.png', 165, 335);
 newItem('assets/staff.png', 600, 250);
 ```
 </details>
+
 </details>
+
 <details><summary>Part 3</summary>
 
+
 <details><summary>Version 1</summary>
+
 We want our character to be able to move (or any other image or item in the future?).  Let's begin by defining a ```move()``` function.
 ```javascript
 function move(image, left, bottom) {
@@ -484,7 +515,9 @@ function newImage(url, left, bottom) {
 To test this functionality, modify the ```left``` and ```bottom``` parameters of the ```newImage('assets/green-character.gif', 100, 250);``` function call and watch as the green character moves around the screen.
 
 </details>
+
 <details><summary>Version 2</summary>
+
 If we refactor the ```move()``` function to the following, we will have the same functionality.
 ```javascript
 function move(image, left, bottom) {
@@ -527,7 +560,9 @@ function newImage(url, left, bottom) {
 }
 ```
 </details>
+
 <details><summary>Version 3</summary>
+
 Note that event the ```newInventory()``` function can take advantage of this function.
 ```javascript
 function newInventory() {
@@ -632,9 +667,13 @@ newItem('assets/shield.png', 165, 335);
 newItem('assets/staff.png', 600, 250);
 ```
 </details>
+
 </details>
+
 <details><summary>Part 4</summary>
+
 <details><summary>Version 1</summary>
+
 Begin by refactoring our code, placing our functions into separate ```*.js``` files.
 With that done, our HTML will appear as follows:
 ```html
@@ -676,7 +715,9 @@ newItem('assets/staff.png', 600, 250);
 All of the function definitions are contained within their own files and are referenced by ```script``` tags in the ```index.html``` file.
 
 </details>
+
 <details><summary>Version 2</summary>
+
 Change the ```newImage()``` invocation to store the resulting object in a variable:
 ```javascript
 const character = newImage('assets/green-character.gif');
@@ -688,7 +729,9 @@ Then, position that same character to the bottom right of the screen by calling 
 move(character).to(100, 250);
 ```
 </details>
+
 <details><summary>Version 3</summary>
+
 We will need variables to hold the character's current position.  Also, we will want a variable to let us know and control the character's direction of movement.  Also, feed the position variables into the ```move().to()``` call.
 ```javascript
 const character = newImage('assets/green-character.gif')
@@ -722,7 +765,9 @@ setInterval(moveCharacter, 1);
 ![](./Captures/WebGameCapture00103.gif)
 ---
 </details>
-<details><summary>Version 5</summary>Function
+
+<details><summary>Version 5</summary>
+
 Our code, when refactoring the function looks like this:
 ```javascript
 setInterval(() => {
@@ -761,7 +806,9 @@ setInterval(() => {
 }, 1);
 ```
 </details>
+
 <details><summary>Version 6</summary>
+
 To begin, we add a keyboard ```keydown``` event listener in our ```index.js``` file.
 ```javascript
 document.addEventListener('keydown', function(e){                
@@ -789,7 +836,9 @@ document.addEventListener('keydown', function(e){
 });
 ```
 </details>
+
 <details><summary>Version 7</summary>
+
 We have a relatively sticky keyboard, and the computer can rapidly fire off multiple events on a single keypress.  We simply need to capture the key once when it is pressed.  We add the following line of code to the ```keydown``` event listener to avoid problems:
 ```javascript
     if(e.repeat) return; 
@@ -814,7 +863,9 @@ document.addEventListener('keydown', function(e){
 });
 ```
 </details>
+
 <details><summary>Version 8</summary>
+
 Our character can move in all four directions, but now will not stop moving once started.  Let's add a ```keyup``` event to improve our functionality.
 ```javascript
 document.addEventListener('keyup', function(e){
@@ -823,7 +874,9 @@ document.addEventListener('keyup', function(e){
 ```
 
 </details>
+
 <details><summary>Version 9</summary>
+
 We can improve the ```move()``` function, allowing it to work on other images too.  Change the ```move.js``` file to the following:
 ```javascript
 function move(element) {
@@ -934,7 +987,9 @@ Before proceeding, we revert our tree to a static image.
 newImage('assets/tree.png', 200, 450);
 ```
 </details>
+
 <details><summary>Version 10</summary>
+
 In this last step, we modify the character to change images to make it appear to walk when moving.  We will utilize animated gif's to do so.
 Add the following to the ```index.js``` file, replacing duplicate code where necessary.
 ```javascript
@@ -994,7 +1049,9 @@ But also, in the ```handleDirectionChange()``` function, add ```direction``` as 
 function handleDirectionChange(direction){
 ```
 </details>
+
 <details><summary>Version 11</summary>
+
 Change the event listeners in the ```move.js``` file to invoke the callback only if the callback parameter is passed in.
 ```javascript
         document.addEventListener('keydown', function(e){
@@ -1028,7 +1085,9 @@ Change the event listeners in the ```move.js``` file to invoke the callback only
 Now, change the ```newImage()``` invocation to use this new functionality.  The tree will move with the character, but the character will use the callback to change the animated GIF it is using.
 ![](./Captures/WebGameCapture00109.gif)
 </details>
+
 <details><summary>Version 12</summary>
+
 The image can be moved off screen.  Let's improve our design.
 ```javascript
         function moveCharacter(){
@@ -1083,7 +1142,9 @@ move(newImage('assets/tree.png')).withArrowKeys(200, 450, 125, 165);
 ![](./Captures/WebGameCapture00113.gif)
 Notice that the character and tree stop differently at the edges. Each goes completely to the edge before stopping, regardless of whether the other image is already limited to the edge?
 </details>
+
 <details><summary>Version 13</summary>
+
 The images can move behind the other images.  This is due to the z-index of each element.  What we want is the further up the image is placed on the screen, the further back it is positioned in z-index terms.  If a moving image is below the static image in screen height, it will pass in front of it, otherwise, behind.  To do this, we set the z-index for all images when they are first created.  However, we want to lowest vertical height images to have the highest z-index value and vise versa.
 
 We change the ```moveToCoordinates()``` and ```moveWithArrowKeys()``` functions to take z-index into account.  Note, there are three lines beginning with ```element.style.zIndex```.
@@ -1123,6 +1184,7 @@ We change the ```moveToCoordinates()``` and ```moveWithArrowKeys()``` functions 
 ```
 ![](./Captures/WebGameCapture00115.gif)
 </details>
+
 </details>
 
 ## Completion
@@ -1334,6 +1396,7 @@ function newItem(url, left, bottom) {
 ![](./Captures/WebGameCapture00014.png)
 ![](./Captures/WebGameCapture00015.png)
 </details>
+
 <details><summary>Part 2</summary> 
 
 ![](./Captures/WebGameCapture00032.png)
@@ -1349,6 +1412,7 @@ function newItem(url, left, bottom) {
 ![](./Captures/WebGameCapture00042.png)
 ![](./Captures/WebGameCapture00043.png)
 </details>
+
 <details><summary>Part 3</summary>  
 
 ![](./Captures/WebGameCapture00052.png)
@@ -1373,7 +1437,9 @@ function newItem(url, left, bottom) {
 ![](./Captures/WebGameCapture00071.png)
 ![](./Captures/WebGameCapture00072.png)
 </details>
-<details><summary>Part 4</summary>   
+
+<details><summary>Part 4</summary>  
+
  
 ![](./Captures/WebGameCapture00073.png)
 ![](./Captures/WebGameCapture00074.png)
