@@ -1,5 +1,5 @@
 # Running My API Example with RunKit-Endpoint and Postman
-Tags: #RunKit #Postman #API
+Tags: #Vignette #RunKit #Postman #API
 
 ## Setup
 
