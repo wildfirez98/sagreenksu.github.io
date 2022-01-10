@@ -15,7 +15,7 @@ NOTE:  Please add only LinkedIn and GitHub repository information.  Any addition
 | 8 | Hannah Gooding |  |  |  |
 | 9 | Scott Green | Tulsa, Oklahoma | [https://github.com/sagreenksu](https://github.com/sagreenksu) | [https://www.linkedin.com/in/sagreenxyz](https://www.linkedin.com/in/sagreenxyz) |
 | 10 | Damon Hayes |  |  |  |
-| 11 | Christina Hurt | Manhattan, Kansas |  |  |
+| 11 | Christina Hurt | Manhattan, Kansas |  | [linkedin.com/in/christina-hurt-27445550](linkedin.com/in/christina-hurt-27445550) |
 | 12 | Ronald Kiefer | Anadarko, Oklahoma |  |  |
 | 13 | Robert Long |  |  |  |
 | 14 | Ayda Mkaddem |  |  |  |
