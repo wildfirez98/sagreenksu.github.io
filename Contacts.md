@@ -7,13 +7,13 @@ NOTE:  Please add only LinkedIn and GitHub repository information.  Any addition
 | --- |---------|----------|--------|----------|-------|
 | 1 | Braxton Allen | Hutchinson, Kansas | []() | [linkedin.com/in/braxton-allen-745276204](linkedin.com/in/braxton-allen-745276204) | 
 | 2 | James Area |  |  |  |
-| 3 | Benjamin Banwart | Fort Scott, Kansas |  | [LinkedIn](linkedin.com/in/benjamin-banwart-490736224) |
+| 3 | Benjamin Banwart | Fort Scott, Kansas |  | [linkedin.com/in/benjamin-banwart-490736224](linkedin.com/in/benjamin-banwart-490736224) |
 | 4 | Ryan Blake |  |  |  |
 | 5 | William Busby |  |  |  |
 | 6 | Ryan Castle |  |  |  |
 | 7 | Benjamin Froehlich |  |  |  |
 | 8 | Hannah Gooding |  |  |  |
-| 9 | Scott Green | Tulsa, Oklahoma | [GitHub](https://github.com/sagreenksu) | [LinkedIn](https://www.linkedin.com/in/sagreenxyz) |
+| 9 | Scott Green | Tulsa, Oklahoma | [https://github.com/sagreenksu](https://github.com/sagreenksu) | [https://www.linkedin.com/in/sagreenxyz](https://www.linkedin.com/in/sagreenxyz) |
 | 10 | Damon Hayes |  |  |  |
 | 11 | Christina Hurt |  |  |  |
 | 12 | Ronald Kiefer |  |  |  |
@@ -27,10 +27,10 @@ NOTE:  Please add only LinkedIn and GitHub repository information.  Any addition
 
 |     | Instructor | Location | GitHub | LinkedIn |
 | --- |---------|----------|--------|----------|
-| 1 | Chance Embrey |  |  | [LinkedIn](https://www.linkedin.com/in/cembreyfarquhar) |
+| 1 | Chance Embrey |  |  | [https://www.linkedin.com/in/cembreyfarquhar](https://www.linkedin.com/in/cembreyfarquhar) |
 | 2 | Cole Munson |  |  |  |
 | 3 | Ileana Valdez |  |  |  |
-| 4 | Yolanda Charles | Detroit, Michigan |  | [LinkedIn](linkedin.com/in/yolandasmithcharles) |
+| 4 | Yolanda Charles | Detroit, Michigan |  | [linkedin.com/in/yolandasmithcharles](linkedin.com/in/yolandasmithcharles) |
 
 
 |     | Student Success Manager | Location | GitHub | LinkedIn |
