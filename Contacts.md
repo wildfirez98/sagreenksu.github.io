@@ -6,7 +6,7 @@ NOTE:  Please add only LinkedIn and GitHub repository information.  Any addition
 |     | Student | Location | GitHub | LinkedIn | Notes |
 | --- |---------|----------|--------|----------|-------|
 | 1 | Braxton Allen | Hutchinson, Kansas | []() | [linkedin.com/in/braxton-allen-745276204](linkedin.com/in/braxton-allen-745276204) | 
-| 2 | James Area | Lenexa, Kansas |  | [https://www.linkedin.com/in/james-area-74399960](https://www.linkedin.com/in/james-area-74399960) |
+| 2 | James Area | Lenexa, Kansas | https://github.com/wildfirez98 | [https://www.linkedin.com/in/james-area-74399960](https://www.linkedin.com/in/james-area-74399960) |
 | 3 | Benjamin Banwart | Fort Scott, Kansas |  | [linkedin.com/in/benjamin-banwart-490736224](linkedin.com/in/benjamin-banwart-490736224) |
 | 4 | Ryan Blake |  |  |  |
 | 5 | William Busby |  |  |  |
